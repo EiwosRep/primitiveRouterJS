@@ -1,14 +1,25 @@
 export class Router {
     _config;
     _routes;
-    _error;
-    _default;
+    _errorPage;
+    _defaultPage;
 
-    constructor(config, routes, error, defaultPage) {
-        this._config = config;
-        this._routes = routes;
-        this._error = error;
-        this._default = defaultPage;
+    constructor(config, routes, errorPage, defaultPage) {
+        if (config instanceof Object) {
+            this._config = config;
+        } else throw new TypeError("Config' is not an object.");
+
+        if (routes instanceof Array) {
+            this._routes = routes;
+        } else throw new TypeError("Routes is not an array.");
+
+        if (errorPage instanceof Object) {
+            this._errorPage = errorPage;
+        } else throw new TypeError("Error page is not an Object.");
+
+        if (defaultPage instanceof Object) {
+            this._defaultPage = defaultPage;
+        } else throw new TypeError("Default page is not an Object.")
     }
 
     hashRouterRunner() {
