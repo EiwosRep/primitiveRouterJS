@@ -3,8 +3,9 @@ export class Router {
     _routes;
     _errorPage;
     _defaultPage;
+    _routerOutlet;
 
-    constructor(config, routes, errorPage, defaultPage) {
+    constructor(config, routes, errorPage, defaultPage, routerOutlet) {
         if (config instanceof Object) {
             this._config = config;
         } else throw new TypeError("Config' is not an object.");
@@ -20,28 +21,32 @@ export class Router {
         if (defaultPage instanceof Object) {
             this._defaultPage = defaultPage;
         } else throw new TypeError("Default page is not an Object.")
+
+        if (typeof routerOutlet === "string") {
+            this._routerOutlet = routerOutlet;
+        } else throw new TypeError("routerOutlet is not a string.");
     }
 
     hashRouterRunner() {
         window.addEventListener("DOMContentLoaded", (Event) => {
-            const routerOutlet = document.getElementById("routerOutlet");
+            const routerOutlet = document.getElementById(`${this._routerOutlet}`);
             routerOutlet.innerHTML = this.hashViewRenderer();
         });
 
         window.addEventListener("hashchange", (Event) => {
-            const routerOutlet = document.getElementById("routerOutlet");
+            const routerOutlet = document.getElementById(`${this._routerOutlet}`);
             routerOutlet.innerHTML = this.hashViewRenderer();
         });
     }
 
     hashViewRenderer() {
-        let viewToRender = this._error.render();
+        let viewToRender = this._errorPage.render();
         const currentHashUrl = this.hashUrlParser();
         const arrayLength = this._routes.length;
         let increment = 0;
 
         if (currentHashUrl === undefined) {
-            return this._default.render();
+            return this._defaultPage.render();
         }
 
         while (increment < arrayLength) {
@@ -52,7 +57,7 @@ export class Router {
             }
 
             if (increment === arrayLength - 1) {
-                viewToRender = this._error.render();
+                viewToRender = this._errorPage.render();
                 break;
             }
             increment++;
