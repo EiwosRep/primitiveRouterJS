@@ -5,6 +5,14 @@ export class Router {
     _defaultPage;
     _routerOutlet;
 
+    /*
+    * @constructor
+    * @param {object} config
+    * @param {array} routes
+    * @param {object} errorPage
+    * @param {object} defaultPage
+    * @param {string} routerOutlet
+    * */
     constructor(config, routes, errorPage, defaultPage, routerOutlet) {
         if (config instanceof Object) {
             this._config = config;
