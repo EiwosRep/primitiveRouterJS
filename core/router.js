@@ -15,13 +15,11 @@ export class Router {
         window.addEventListener("DOMContentLoaded", (Event) => {
             const routerOutlet = document.getElementById("routerOutlet");
             routerOutlet.innerHTML = this.hashViewRenderer();
-            console.log(this.hashViewRenderer());
         });
 
         window.addEventListener("hashchange", (Event) => {
             const routerOutlet = document.getElementById("routerOutlet");
             routerOutlet.innerHTML = this.hashViewRenderer();
-            console.log(this.hashViewRenderer());
         });
     }
 
